@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local AI Engineering Tutor</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Markmap styles (Toolbar) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.4/dist/style.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Favicon (Optional - place favicon.ico in static folder) -->
+    <!-- <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}"> -->
+</head>
+<body>
+    <div class="container-fluid mt-3 mb-3">
+        <h1 class="text-center mb-4 text-primary">Local AI Engineering Tutor</h1>
+
+        <!-- Status Area -->
+        <div class="status-area d-flex justify-content-between align-items-center mb-3 px-2">
+             <span id="connection-status" class="badge bg-secondary">Initializing...</span>
+             <div id="status-message" class="alert alert-dismissible fade show ms-3" role="alert" style="display: none; margin-bottom: 0; padding: 0.5rem 1rem; padding-right: 2.5rem;">
+                 <!-- Status messages appear here -->
+                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="padding: 0.6rem 0.8rem;"></button>
+             </div>
+        </div>
+
+
+        <div class="row g-3">
+            <!-- Left Column: Controls -->
+            <div class="col-md-4">
+                <!-- Upload Section -->
+                <div class="card mb-3 bg-dark-subtle border-secondary shadow-sm control-card">
+                    <div class="card-header">Upload PDF</div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="pdf-upload" class="form-label small">Select PDF Document:</label>
+                            <input class="form-control form-control-sm" type="file" id="pdf-upload" accept=".pdf">
+                        </div>
+                        <button id="upload-button" class="btn btn-primary btn-sm w-100" disabled>
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
+                            Upload & Add to Knowledge Base
+                        </button>
+                        <div id="upload-status" class="mt-2 small text-muted">Select a PDF to upload.</div>
+                    </div>
+                </div>
+
+                <!-- Analysis Section -->
+                <div class="card mb-3 bg-dark-subtle border-secondary shadow-sm control-card">
+                    <div class="card-header">Document Analysis</div>
+                    <div class="card-body" id="analysis-section">
+                        <div class="mb-3">
+                            <label for="analysis-file-select" class="form-label small">Select Document:</label>
+                            <select class="form-select form-select-sm" id="analysis-file-select" disabled>
+                                <option selected disabled value="">Loading documents...</option>
+                                <!-- Options populated by JS -->
+                            </select>
+                        </div>
+                        <div class="btn-group w-100 mb-2 btn-group-sm" role="group" aria-label="Analysis types">
+                            <button id="analyze-faq" class="btn btn-info analysis-btn" disabled data-analysis-type="faq">Gen FAQ</button>
+                            <button id="analyze-topics" class="btn btn-info analysis-btn" disabled data-analysis-type="topics">Topics</button>
+                            <button id="analyze-mindmap" class="btn btn-info analysis-btn" disabled data-analysis-type="mindmap">Mind Map</button>
+                        </div>
+                        <div id="analysis-status" class="mt-1 small text-muted mb-2">Select a document and analysis type.</div>
+
+                        <!-- === MODIFIED: Added Analysis Reasoning Output Widget === -->
+                        <div id="analysis-reasoning-container" class="reasoning-widget mb-2" style="display: none;">
+                            <h6 class="text-muted small mb-1 fw-bold">AI Reasoning:</h6>
+                            <pre id="analysis-reasoning-output" class="analysis-reasoning-content bg-black p-2 rounded border border-secondary small"></pre>
+                        </div>
+                        <!-- === END MODIFICATION === -->
+
+                        <!-- Main Analysis Output Area -->
+                        <div id="analysis-output-container" class="mt-2" style="display: none;">
+                             <div class="d-flex justify-content-between align-items-center mb-1">
+                                <h5 id="analysis-output-title" class="text-light mb-0 small fw-bold">Analysis Result:</h5>
+                                <!-- Add copy button later if needed -->
+                             </div>
+                            <!-- Div for text/markdown output -->
+                            <div id="analysis-output" class="text-light bg-black p-2 rounded border border-secondary analysis-content"></div>
+                            <!-- Mindmap SVG and Toolbar Container -->
+                            <div id="mindmap-container" class="mt-2" style="display: none;">
+                                <!-- Toolbar will be inserted here -->
+                                <svg id="mindmap-svg" class="mindmap-svg-view"></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Chat -->
+            <div class="col-md-8">
+                <div class="card bg-dark-subtle border-secondary shadow-sm chat-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        Chat Tutor
+                        <small id="session-id-display" class="text-muted small"></small> <!-- Session ID -->
+                    </div>
+                    <div class="card-body d-flex flex-column overflow-hidden p-2">
+                        <!-- Chat History -->
+                        <div id="chat-history" class="flex-grow-1 overflow-auto mb-2 p-2 border border-secondary rounded bg-dark">
+                             <!-- Initial message added by JS -->
+                             <!-- Message Structure (Dynamically created by JS):
+                             <div class="message-wrapper [user|bot]-wrapper" data-message-id="...">
+                                 <div class="message [user|bot]-message"> ... (rendered markdown/escaped text) ... </div>
+                                 <div class="message-thinking" style="display: [none|block]">
+                                     <details>
+                                         <summary>Show Reasoning</summary>
+                                         <pre><code> ... (escaped thinking text) ... </code></pre>
+                                     </details>
+                                 </div>
+                                 <div class="message-references" style="display: [none|block]"> ... (references list) ... </div>
+                             </div>
+                             -->
+                        </div>
+
+                        <!-- Chat Input Area -->
+                        <div class="mt-auto chat-input-area">
+                            <div id="chat-status" class="mb-1 small text-muted text-center">Initializing...</div>
+                            <div class="input-group input-group-sm">
+                                <input type="text" id="chat-input" class="form-control" placeholder="Ask a question..." aria-label="Chat input" disabled>
+                                <button id="voice-input-button" class="btn btn-outline-secondary" type="button" title="Start Voice Input" disabled>🎤</button>
+                                <button id="send-button" class="btn btn-success" type="button" disabled>
+                                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
+                                     Send
+                                </button>
+                            </div>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <!-- Markmap Libraries (Pin versions) -->
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.8.5/dist/d3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.15.4/dist/browser.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.15.4/dist/browser.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.4/dist/index.js"></script>
+    <!-- Marked.js for Markdown Rendering (Pin version) -->
+    <script src="https://cdn.jsdelivr.net/npm/marked@4.3.0/marked.min.js"></script>
+    <!-- DOMPurify (Recommended for Sanitizing Marked Output in production) -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"></script> -->
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

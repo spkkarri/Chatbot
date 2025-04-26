@@ -1,0 +1,12 @@
+conda activate RAG
+python server/rag_service/app.py
+OR
+python -m server.rag_service.app
+
+For testing
+curl -X POST -H "Content-Type: application/json" -d '{"user_id": "__DEFAULT__", "query": "machine learning"}' http://localhost:5002/query
+
+for production
+pip install gunicorn
+gunicorn --bind 0.0.0.0:5002 server.rag_service.app:app
+

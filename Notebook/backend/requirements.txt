@@ -1,0 +1,43 @@
+# Core Framework and Server
+flask
+flask-cors
+waitress
+
+# Configuration & Utilities
+python-dotenv
+uuid # Standard library, but good to note if needed elsewhere
+
+# AI & Machine Learning - Langchain Ecosystem
+langchain
+langchain-community
+langchain-ollama
+
+# AI & Machine Learning - Core Libraries
+ollama
+
+# Vector Store - Choose ONE of the following faiss packages:
+
+# Option 1: GPU Accelerated (Requires NVIDIA GPU, CUDA Toolkit, CuDNN)
+# Ensure your environment meets the requirements before installing.
+# Installation might require specific commands depending on your CUDA version.
+# Check the official FAISS GitHub page for instructions.
+#faiss-gpu
+
+# Option 2: CPU only (Use if no compatible GPU or CUDA setup)
+faiss-cpu
+
+# PDF Processing
+pymupdf # Used in ai_core.py for PDF text extraction
+
+# Tokenizer (Often required by Langchain text splitters/models)
+tiktoken
+
+# HTTP Requests (Common dependencies, good to specify versions)
+requests
+httpx
+
+# Optional: For Markdown rendering on frontend (via CDN)
+# No Python package needed, but noted here.
+
+# Optional: For potential Markdown sanitization on frontend (via CDN)
+# No Python package needed, but noted here.

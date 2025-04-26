@@ -1,0 +1,14 @@
+Flask
+requests
+sentence-transformers
+faiss-cpu # or faiss-gpu
+langchain
+langchain-huggingface
+pypdf
+PyPDF2
+python-docx
+python-dotenv
+ollama # Keep if using Ollama embeddings
+python-pptx # Added for PPTX parsing
+uuid
+

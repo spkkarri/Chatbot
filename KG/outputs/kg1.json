@@ -1,0 +1,159 @@
+{
+  "clusters": [],
+  "miscellaneous": {
+    "id": "Miscellaneous",
+    "topics": [
+      "Machine Learning"
+    ],
+    "description": "Standalone concepts"
+  },
+  "nodes": [
+    {
+      "id": "Machine Learning",
+      "type": "major",
+      "parent": null,
+      "description": "A field of study that gives computers the ability to learn without being explicitly programmed."
+    },
+    {
+      "id": "Supervised Learning",
+      "type": "topic",
+      "parent": "Machine Learning",
+      "description": "A type of machine learning where input data is labeled for training purposes."
+    },
+    {
+      "id": "Unsupervised Learning",
+      "type": "topic",
+      "parent": "Machine Learning",
+      "description": "A type of machine learning that learns from unlabeled data to discover hidden patterns and intrinsic structures."
+    },
+    {
+      "id": "Reinforcement Learning",
+      "type": "topic",
+      "parent": "Machine Learning",
+      "description": "A type of machine learning where an agent interacts with an environment to learn behavior through trial-and-error."
+    },
+    {
+      "id": "Deep Learning",
+      "type": "topic",
+      "parent": "Machine Learning",
+      "description": "A subset of machine learning that uses neural networks with multiple layers for feature extraction and transformation."
+    },
+    {
+      "id": "Neural Networks",
+      "type": "subtopic",
+      "parent": "Deep Learning",
+      "description": "Biological brain-inspired systems used in deep learning to model complex patterns in data."
+    },
+    {
+      "id": "Backpropagation",
+      "type": "subtopic",
+      "parent": "Machine Learning",
+      "description": "An algorithm for efficiently computing gradients of loss functions with respect to parameters in neural networks."
+    },
+    {
+      "id": "Activation Functions",
+      "type": "subtopic",
+      "parent": "Neural Networks",
+      "description": "Functions that introduce non-linearity into the output of a neuron, enabling the network to learn complex patterns."
+    },
+    {
+      "id": "Loss Functions",
+      "type": "subtopic",
+      "parent": "Machine Learning",
+      "description": "A function measuring the discrepancy between predicted and actual outcomes used for training models."
+    },
+    {
+      "id": "Gradient Descent",
+      "type": "subtopic",
+      "parent": "Machine Learning",
+      "description": "An optimization algorithm that iteratively minimizes a cost function by moving in the direction of steepest descent."
+    }
+  ],
+  "edges": [
+    {
+      "from": "Supervised Learning",
+      "to": "Loss Functions",
+      "relationship": "depends_on"
+    },
+    {
+      "from": "Unsupervised Learning",
+      "to": "Neural Networks",
+      "relationship": "related_to"
+    },
+    {
+      "from": "Reinforcement Learning",
+      "to": "Backpropagation",
+      "relationship": "depends_on"
+    },
+    {
+      "from": "Deep Learning",
+      "to": "Activation Functions",
+      "relationship": "contains"
+    },
+    {
+      "from": "Machine Learning",
+      "to": "Gradient Descent",
+      "relationship": "contains"
+    }
+  ],
+  "subgraphs": {
+    "Machine Learning": {
+      "nodes": [
+        {
+          "id": "Supervised Learning",
+          "type": "topic",
+          "parent": "Machine Learning",
+          "description": "A type of machine learning where input data is labeled for training purposes."
+        },
+        {
+          "id": "Unsupervised Learning",
+          "type": "topic",
+          "parent": "Machine Learning",
+          "description": "A type of machine learning that learns from unlabeled data to discover hidden patterns and intrinsic structures."
+        },
+        {
+          "id": "Reinforcement Learning",
+          "type": "topic",
+          "parent": "Machine Learning",
+          "description": "A type of machine learning where an agent interacts with an environment to learn behavior through trial-and-error."
+        },
+        {
+          "id": "Deep Learning",
+          "type": "topic",
+          "parent": "Machine Learning",
+          "description": "A subset of machine learning that uses neural networks with multiple layers for feature extraction and transformation."
+        },
+        {
+          "id": "Backpropagation",
+          "type": "subtopic",
+          "parent": "Machine Learning",
+          "description": "An algorithm for efficiently computing gradients of loss functions with respect to parameters in neural networks."
+        },
+        {
+          "id": "Loss Functions",
+          "type": "subtopic",
+          "parent": "Machine Learning",
+          "description": "A function measuring the discrepancy between predicted and actual outcomes used for training models."
+        },
+        {
+          "id": "Gradient Descent",
+          "type": "subtopic",
+          "parent": "Machine Learning",
+          "description": "An optimization algorithm that iteratively minimizes a cost function by moving in the direction of steepest descent."
+        }
+      ],
+      "edges": [
+        {
+          "from": "Supervised Learning",
+          "to": "Loss Functions",
+          "relationship": "depends_on"
+        },
+        {
+          "from": "Reinforcement Learning",
+          "to": "Backpropagation",
+          "relationship": "depends_on"
+        }
+      ]
+    }
+  }
+}

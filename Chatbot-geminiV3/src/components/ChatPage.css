@@ -1,0 +1,428 @@
+/* client/src/components/ChatPage.css */
+
+/* === Dark Theme Variables === */
+:root {
+  --bg-main: #121212; /* Very dark grey, almost black */
+  --bg-sidebar: #1e1e1e; /* Slightly lighter dark grey */
+  --bg-header: #1e1e1e;
+  --bg-messages: #121212;
+  --bg-input: #2a2a2a; /* Dark grey for inputs */
+  --bg-widget: #252526; /* VSCode-like dark grey */
+
+  --text-primary: #e0e0e0; /* Light grey for primary text */
+  --text-secondary: #a0a0a0; /* Medium grey for secondary text */
+  --text-link: #58a6ff; /* Light blue for links/accents */
+
+  --border-color: #3a3a3a; /* Dark border */
+  --scrollbar-thumb: #4a4a50;
+  --scrollbar-track: transparent;
+
+  --user-message-bg: #005c9d; /* Darker blue for user messages */
+  --user-message-text: #ffffff;
+  --model-message-bg: #333333; /* Dark grey for model messages */
+  --model-message-text: #e0e0e0;
+
+  --accent-blue: #007acc; /* Standard blue accent */
+  --accent-blue-light: #3b9cff;
+  --error-color: #f44747;
+  --error-bg: rgba(244, 71, 71, 0.1);
+  --success-color: #4caf50;
+  --success-bg: rgba(76, 175, 80, 0.1);
+
+  --code-bg: #1e1e1e;
+  --code-text: #d4d4d4;
+  --code-border: #3a3a3a;
+}
+
+/* === Global Styles === */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  height: 100vh;
+  overflow: hidden; /* Prevent body scroll */
+}
+
+/* === Main Layout === */
+.chat-page-container {
+  display: flex;
+  height: 100vh;
+  background-color: var(--bg-main);
+}
+
+/* === Sidebar Area === */
+.sidebar-area {
+  width: 280px; /* Slightly wider */
+  flex-shrink: 0;
+  background-color: var(--bg-sidebar);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Prevent sidebar itself from scrolling */
+  height: 100vh; /* Ensure full height */
+}
+
+/* Widgets within Sidebar */
+.system-prompt-widget,
+.file-upload-widget,
+.file-manager-widget {
+  background-color: var(--bg-widget); /* Use widget background */
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0; /* Prevent shrinking */
+}
+.system-prompt-widget { padding: 15px; }
+.file-upload-widget { padding: 15px; }
+.file-manager-widget {
+  flex-grow: 1; /* Allow file manager to take remaining space */
+  overflow: hidden; /* Contains the scrolling within its list */
+  border-bottom: none; /* No border at the very bottom */
+  display: flex; /* Ensure flex properties apply */
+  flex-direction: column;
+}
+
+
+/* === Chat Container === */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  background-color: var(--bg-messages);
+  overflow: hidden; /* Prevent chat container scroll, manage internally */
+  height: 100vh;
+}
+
+/* Chat Header */
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 25px;
+  background-color: var(--bg-header);
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+.chat-header h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.username-display {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+.header-button {
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  background-color: #3a3a40;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+.header-button:hover:not(:disabled) {
+  background-color: #4a4a50;
+  border-color: #5a5a60;
+}
+.header-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.logout-button:hover:not(:disabled) {
+  background-color: var(--error-bg);
+  border-color: var(--error-color);
+  color: var(--error-color);
+}
+
+/* Messages Area */
+.messages-area {
+  flex-grow: 1;
+  overflow-y: auto; /* Enable scrolling ONLY for messages */
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+.messages-area::-webkit-scrollbar { width: 8px; }
+.messages-area::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+.messages-area::-webkit-scrollbar-thumb { background-color: var(--scrollbar-thumb); border-radius: 4px; }
+
+/* Individual Message Styling */
+.message {
+  display: flex;
+  max-width: 80%; /* Max width of a message bubble */
+  position: relative;
+  word-wrap: break-word;
+  flex-direction: column; /* Stack content and timestamp */
+}
+.message.user {
+  align-self: flex-end;
+  align-items: flex-end; /* Align timestamp to the right */
+}
+.message.model {
+  align-self: flex-start;
+  align-items: flex-start; /* Align timestamp to the left */
+}
+.message-content {
+  padding: 12px 18px;
+  border-radius: 18px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  text-align: left; /* Ensure text aligns left within bubble */
+}
+.message.user .message-content {
+  background-color: var(--user-message-bg);
+  color: var(--user-message-text);
+  border-bottom-right-radius: 5px; /* Speech bubble tail */
+}
+.message.model .message-content {
+  background-color: var(--model-message-bg);
+  color: var(--model-message-text);
+  border-bottom-left-radius: 5px; /* Speech bubble tail */
+}
+/* Markdown Styles within messages */
+.message-content p { margin: 0 0 0.6em 0; }
+.message-content p:last-child { margin-bottom: 0; }
+.message-content strong { font-weight: 600; }
+.message-content em { font-style: italic; }
+.message-content ul, .message-content ol { padding-left: 25px; margin: 0.5em 0; }
+.message-content li { margin-bottom: 0.3em; }
+.message-content a { color: var(--text-link); text-decoration: none; }
+.message-content a:hover { text-decoration: underline; }
+.message-content pre {
+  background-color: var(--code-bg);
+  border: 1px solid var(--code-border);
+  border-radius: 6px;
+  padding: 12px 15px;
+  overflow-x: auto;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+  font-size: 0.9rem;
+  margin: 1em 0;
+  white-space: pre;
+  color: var(--code-text);
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--code-bg);
+}
+.message-content pre::-webkit-scrollbar { height: 6px; }
+.message-content pre::-webkit-scrollbar-track { background: var(--code-bg); }
+.message-content pre::-webkit-scrollbar-thumb { background-color: var(--scrollbar-thumb); border-radius: 3px; }
+.message-content code { /* Inline code */
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+  font-size: 0.88rem;
+  background-color: rgba(255, 255, 255, 0.08);
+  padding: 0.2em 0.5em;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+}
+.message-content pre code { /* Code within pre block */
+  background-color: transparent;
+  padding: 0;
+  border: none;
+  font-size: inherit;
+  color: inherit;
+}
+/* Citation Style */
+.message-content em:has(> span.citation-ref) {
+   font-style: normal;
+   display: block;
+   margin-top: 10px;
+   font-size: 0.8rem;
+   color: var(--text-secondary);
+}
+.citation-ref {
+   /* Add specific styles if needed */
+}
+
+
+.message-timestamp {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  margin-top: 6px;
+  padding: 0 5px; /* Add slight padding */
+}
+
+/* Loading/Error Indicators */
+.loading-indicator, .error-indicator {
+  text-align: center;
+  padding: 10px 20px;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--text-secondary);
+  flex-shrink: 0; /* Prevent shrinking */
+  margin: 5px 20px; /* Add margin */
+}
+.error-indicator {
+  color: var(--error-color);
+  background-color: var(--error-bg);
+  border: 1px solid var(--error-color);
+  border-radius: 4px;
+  font-style: normal;
+}
+.message-error { /* Style for message rendering errors */
+  color: var(--error-color);
+  font-style: italic;
+  text-align: center;
+  padding: 5px;
+  font-size: 0.8rem;
+}
+
+/* Input Area */
+.input-area {
+  display: flex;
+  align-items: center; /* Align items vertically */
+  padding: 12px 20px; /* Reduced padding slightly */
+  border-top: 1px solid var(--border-color);
+  background-color: var(--bg-header); /* Match header background */
+  flex-shrink: 0;
+  gap: 10px; /* Space between elements */
+}
+
+.input-area textarea {
+  flex-grow: 1;
+  padding: 10px 18px;
+  border: 1px solid var(--border-color);
+  border-radius: 20px; /* Pill shape */
+  resize: none;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  max-height: 120px; /* Limit height */
+  overflow-y: auto; /* Scroll if needed */
+  box-sizing: border-box;
+  font-family: inherit;
+  background-color: var(--bg-input);
+  color: var(--text-primary);
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+.input-area textarea::-webkit-scrollbar { width: 6px; }
+.input-area textarea::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+.input-area textarea::-webkit-scrollbar-thumb { background-color: var(--scrollbar-thumb); border-radius: 3px; }
+.input-area textarea::placeholder { color: var(--text-secondary); opacity: 0.7; }
+.input-area textarea:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+  background-color: var(--bg-input); /* Keep bg same on focus */
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.3);
+}
+.input-area textarea:disabled {
+  background-color: #2a2a30;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* RAG Toggle Styles */
+.rag-toggle-container {
+  display: flex;
+  align-items: center;
+  gap: 6px; /* Space between checkbox and label */
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 5px 8px;
+  border-radius: 4px;
+  white-space: nowrap; /* Prevent "RAG" label wrapping */
+  flex-shrink: 0; /* Prevent toggle shrinking */
+  transition: background-color 0.2s ease;
+  user-select: none;
+}
+.rag-toggle-container:has(input:not(:disabled)):hover {
+   background-color: rgba(255, 255, 255, 0.05);
+}
+.rag-toggle-container input[type="checkbox"] {
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent-blue); /* Use theme color for checkmark */
+  margin: 0; /* Remove default margins */
+  vertical-align: middle; /* Align checkbox better */
+}
+.rag-toggle-container label {
+  font-size: 0.85rem;
+  cursor: pointer;
+  line-height: 1; /* Ensure label aligns well */
+}
+/* Styles for disabled state */
+.rag-toggle-container input[type="checkbox"]:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.rag-toggle-container input[type="checkbox"]:disabled + label {
+  cursor: not-allowed;
+  opacity: 0.6;
+  color: #666; /* Muted color when disabled */
+}
+
+/* Send Button */
+.input-area button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  width: 40px; /* Fixed size */
+  height: 40px; /* Fixed size */
+  background-color: var(--accent-blue);
+  color: white;
+  border: none;
+  border-radius: 50%; /* Circle */
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  flex-shrink: 0;
+}
+.input-area button:hover:not(:disabled) {
+  background-color: var(--accent-blue-light);
+}
+.input-area button:disabled {
+  background-color: #3a3a40; /* Use a dark disabled color */
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+.input-area button svg {
+  width: 20px;
+  height: 20px;
+}
+
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 900px) {
+    .sidebar-area { display: none; } /* Hide sidebar */
+    .chat-container { border-left: none; }
+}
+@media (max-width: 600px) {
+     .chat-header { padding: 10px 15px; }
+     .chat-header h1 { font-size: 1.1rem; }
+     .header-controls { gap: 8px; }
+     .header-button { padding: 5px 10px; font-size: 0.8rem; }
+     .username-display { display: none; } /* Hide username on small screens */
+
+     .messages-area { padding: 15px; gap: 15px; }
+     .message { max-width: 90%; }
+     .message-content { padding: 10px 15px; font-size: 0.9rem; }
+
+     .input-area { padding: 10px 12px; gap: 8px; }
+     .input-area textarea { font-size: 0.9rem; padding: 8px 15px; }
+
+     /* Adjust toggle for mobile */
+     .rag-toggle-container { padding: 4px 6px; gap: 4px;}
+     .rag-toggle-container label { font-size: 0.8rem; }
+     .rag-toggle-container input[type="checkbox"] { width: 14px; height: 14px; }
+
+     .input-area button { width: 36px; height: 36px; padding: 6px; }
+     .input-area button svg { width: 18px; height: 18px; }
+
+}

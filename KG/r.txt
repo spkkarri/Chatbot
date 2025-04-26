@@ -1,0 +1,26 @@
+langchain-community
+langchain-ollama
+pdfminer.six
+networkx
+matplotlib
+tqdm
+scipy
+spacy
+transformers
+sentence-transformers 
+torch
+
+nltk
+PyPDF2
+python-docx
+scikit-learn
+gensim
+networkx
+matplotlib
+pydantic
+plotly
+reactpy[starlette]
+#torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+
+#python -m spacy download en_core_web_lg
+

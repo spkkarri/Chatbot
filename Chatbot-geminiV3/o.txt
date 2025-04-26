@@ -1,0 +1,440 @@
+Chatbot-gemini
+├── client
+│   ├── .env
+│   ├── .git
+│   │   ├── branches
+│   │   ├── COMMIT_EDITMSG
+│   │   ├── config
+│   │   ├── description
+│   │   ├── HEAD
+│   │   ├── hooks
+│   │   │   ├── applypatch-msg.sample
+│   │   │   ├── commit-msg.sample
+│   │   │   ├── fsmonitor-watchman.sample
+│   │   │   ├── post-update.sample
+│   │   │   ├── pre-applypatch.sample
+│   │   │   ├── pre-commit.sample
+│   │   │   ├── pre-merge-commit.sample
+│   │   │   ├── prepare-commit-msg.sample
+│   │   │   ├── pre-push.sample
+│   │   │   ├── pre-rebase.sample
+│   │   │   ├── pre-receive.sample
+│   │   │   ├── push-to-checkout.sample
+│   │   │   └── update.sample
+│   │   ├── index
+│   │   ├── info
+│   │   │   └── exclude
+│   │   ├── logs
+│   │   │   ├── HEAD
+│   │   │   └── refs
+│   │   │       └── heads
+│   │   │           └── master
+│   │   ├── objects
+│   │   │   ├── 08
+│   │   │   │   └── 0d6c77ac21bb2ef88a6992b2b73ad93daaca92
+│   │   │   ├── 1f
+│   │   │   │   └── 03afeece5ac28064fa3c73a29215037465f789
+│   │   │   ├── 37
+│   │   │   │   └── 845757234ccb68531c10cf7a2ffc589c47e342
+│   │   │   ├── 4d
+│   │   │   │   └── 29575de80483b005c29bfcac5061cd2f45313e
+│   │   │   ├── 52
+│   │   │   │   └── 53d3ad9e6be6690549cb255f5952337b02401d
+│   │   │   ├── 58
+│   │   │   │   └── beeaccd87e230076cab531b8f418f40b6d1aeb
+│   │   │   ├── 74
+│   │   │   │   └── b5e053450a48a6bdb4d71aad648e7af821975c
+│   │   │   ├── 7b
+│   │   │   │   └── 1e172334cdc980bee9ad6a8a87cf21e0ed18d8
+│   │   │   ├── 8e
+│   │   │   │   └── 29b36dea7f04ae8729d8b33ecc05c3c9b0fe46
+│   │   │   ├── 8f
+│   │   │   │   └── 2609b7b3e0e3897ab3bcaad13caf6876e48699
+│   │   │   ├── 9d
+│   │   │   │   └── fc1c058cebbef8b891c5062be6f31033d7d186
+│   │   │   ├── a1
+│   │   │   │   └── 1777cc471a4344702741ab1c8a588998b1311a
+│   │   │   ├── a4
+│   │   │   │   └── e47a6545bc15971f8f63fba70e4013df88a664
+│   │   │   ├── aa
+│   │   │   │   └── 069f27cbd9d53394428171c3989fd03db73c76
+│   │   │   ├── b7
+│   │   │   │   └── 74f9efba05bc34f4b71bfca23dc005a0ef83be
+│   │   │   ├── d5
+│   │   │   │   └── 63c0fb10ba0e42724b21286eb546ee4e5734fc
+│   │   │   ├── e4
+│   │   │   │   └── c9945924667b6e4938995771ab8d913a1b318f
+│   │   │   ├── e9
+│   │   │   │   └── e57dc4d41b9b46e05112e9f45b7ea6ac0ba15e
+│   │   │   ├── ec
+│   │   │   │   └── 2585e8c0bb8188184ed1e0703c4c8f2a8419b0
+│   │   │   ├── f4
+│   │   │   │   └── c86f0c4dcad7f2a34102df07e3996d912fb812
+│   │   │   ├── f9
+│   │   │   │   └── 91a039dd5e0917bce7c861fc59bc569efc4197
+│   │   │   ├── fc
+│   │   │   │   └── 44b0a3796c0e0a64c3d858ca038bd4570465d9
+│   │   │   ├── info
+│   │   │   └── pack
+│   │   └── refs
+│   │       ├── heads
+│   │       │   └── master
+│   │       └── tags
+│   ├── .gitignore
+│   ├── install.sh
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── public
+│   │   ├── favicon.ico
+│   │   ├── index.html
+│   │   ├── logo192.png
+│   │   ├── logo512.png
+│   │   ├── manifest.json
+│   │   └── robots.txt
+│   ├── README.md
+│   ├── src
+│   │   ├── App.css
+│   │   ├── App.js
+│   │   ├── App.test.js
+│   │   ├── components
+│   │   │   ├── AuthPage.js
+│   │   │   ├── ChatPage.css
+│   │   │   ├── ChatPage.js
+│   │   │   ├── FileManagerWidget.js
+│   │   │   ├── FileUploadWidget.js
+│   │   │   ├── HistoryModal.js
+│   │   │   └── SystemPromptWidget.js
+│   │   ├── index.css
+│   │   ├── index.js
+│   │   ├── logo.svg
+│   │   ├── reportWebVitals.js
+│   │   ├── services
+│   │   │   └── api.js
+│   │   └── setupTests.js
+│   └── webpack.config.js
+├── docker-compose.yml
+├── o.txt
+├── README.md
+├── server
+│   ├── assets
+│   │   ├── data
+│   │   │   ├── code
+│   │   │   ├── docs
+│   │   │   ├── images
+│   │   │   └── others
+│   │   ├── docs
+│   │   │   ├── code
+│   │   │   ├── docs
+│   │   │   ├── images
+│   │   │   └── others
+│   │   ├── images
+│   │   │   ├── code
+│   │   │   ├── docs
+│   │   │   ├── images
+│   │   │   └── others
+│   │   ├── others
+│   │   │   ├── code
+│   │   │   ├── docs
+│   │   │   ├── images
+│   │   │   └── others
+│   │   └── s
+│   │       ├── code
+│   │       ├── docs
+│   │       ├── images
+│   │       └── others
+│   ├── backup_assets
+│   │   ├── data
+│   │   │   ├── backup_2025-04-01T11-06-27-547Z
+│   │   │   │   ├── code
+│   │   │   │   ├── docs
+│   │   │   │   ├── images
+│   │   │   │   └── others
+│   │   │   ├── backup_2025-04-01T11-50-58-722Z
+│   │   │   │   ├── code
+│   │   │   │   ├── docs
+│   │   │   │   ├── images
+│   │   │   │   └── others
+│   │   │   ├── backup_2025-04-01T11-51-31-076Z
+│   │   │   │   ├── code
+│   │   │   │   ├── docs
+│   │   │   │   ├── images
+│   │   │   │   └── others
+│   │   │   ├── backup_2025-04-01T11-55-23-558Z
+│   │   │   │   ├── code
+│   │   │   │   ├── docs
+│   │   │   │   ├── images
+│   │   │   │   └── others
+│   │   │   ├── backup_2025-04-01T11-59-43-725Z
+│   │   │   │   ├── code
+│   │   │   │   ├── docs
+│   │   │   │   ├── images
+│   │   │   │   └── others
+│   │   │   ├── backup_2025-04-01T12-04-23-129Z
+│   │   │   │   ├── code
+│   │   │   │   ├── docs
+│   │   │   │   ├── images
+│   │   │   │   └── others
+│   │   │   ├── backup_2025-04-01T12-08-33-186Z
+│   │   │   │   ├── code
+│   │   │   │   ├── docs
+│   │   │   │   ├── images
+│   │   │   │   └── others
+│   │   │   └── backup_2025-04-01T12-42-58-984Z
+│   │   │       ├── code
+│   │   │       ├── docs
+│   │   │       ├── images
+│   │   │       └── others
+│   │   ├── docs
+│   │   │   ├── backup_2025-04-01T11-06-27-547Z
+│   │   │   │   ├── code
+│   │   │   │   ├── docs
+│   │   │   │   ├── images
+│   │   │   │   └── others
+│   │   │   ├── backup_2025-04-01T11-50-58-722Z
+│   │   │   │   ├── code
+│   │   │   │   ├── docs
+│   │   │   │   ├── images
+│   │   │   │   └── others
+│   │   │   ├── backup_2025-04-01T11-51-31-076Z
+│   │   │   │   ├── code
+│   │   │   │   ├── docs
+│   │   │   │   ├── images
+│   │   │   │   └── others
+│   │   │   ├── backup_2025-04-01T11-55-23-558Z
+│   │   │   │   ├── code
+│   │   │   │   ├── docs
+│   │   │   │   ├── images
+│   │   │   │   └── others
+│   │   │   ├── backup_2025-04-01T11-59-43-725Z
+│   │   │   │   ├── code
+│   │   │   │   ├── docs
+│   │   │   │   ├── images
+│   │   │   │   └── others
+│   │   │   ├── backup_2025-04-01T12-04-23-129Z
+│   │   │   │   ├── code
+│   │   │   │   ├── docs
+│   │   │   │   ├── images
+│   │   │   │   └── others
+│   │   │   ├── backup_2025-04-01T12-08-33-186Z
+│   │   │   │   ├── code
+│   │   │   │   ├── docs
+│   │   │   │   ├── images
+│   │   │   │   └── others
+│   │   │   └── backup_2025-04-01T12-42-58-984Z
+│   │   │       ├── code
+│   │   │       ├── docs
+│   │   │       ├── images
+│   │   │       └── others
+│   │   ├── images
+│   │   │   ├── backup_2025-04-01T11-06-27-547Z
+│   │   │   │   ├── code
+│   │   │   │   ├── docs
+│   │   │   │   ├── images
+│   │   │   │   └── others
+│   │   │   ├── backup_2025-04-01T11-50-58-722Z
+│   │   │   │   ├── code
+│   │   │   │   ├── docs
+│   │   │   │   ├── images
+│   │   │   │   └── others
+│   │   │   ├── backup_2025-04-01T11-51-31-076Z
+│   │   │   │   ├── code
+│   │   │   │   ├── docs
+│   │   │   │   ├── images
+│   │   │   │   └── others
+│   │   │   ├── backup_2025-04-01T11-55-23-558Z
+│   │   │   │   ├── code
+│   │   │   │   ├── docs
+│   │   │   │   ├── images
+│   │   │   │   └── others
+│   │   │   ├── backup_2025-04-01T11-59-43-725Z
+│   │   │   │   ├── code
+│   │   │   │   ├── docs
+│   │   │   │   ├── images
+│   │   │   │   └── others
+│   │   │   ├── backup_2025-04-01T12-04-23-129Z
+│   │   │   │   ├── code
+│   │   │   │   ├── docs
+│   │   │   │   ├── images
+│   │   │   │   └── others
+│   │   │   ├── backup_2025-04-01T12-08-33-186Z
+│   │   │   │   ├── code
+│   │   │   │   ├── docs
+│   │   │   │   ├── images
+│   │   │   │   └── others
+│   │   │   └── backup_2025-04-01T12-42-58-984Z
+│   │   │       ├── code
+│   │   │       ├── docs
+│   │   │       ├── images
+│   │   │       └── others
+│   │   ├── others
+│   │   │   ├── backup_2025-04-01T11-06-27-547Z
+│   │   │   │   ├── code
+│   │   │   │   ├── docs
+│   │   │   │   ├── images
+│   │   │   │   └── others
+│   │   │   ├── backup_2025-04-01T11-50-58-722Z
+│   │   │   │   ├── code
+│   │   │   │   ├── docs
+│   │   │   │   ├── images
+│   │   │   │   └── others
+│   │   │   ├── backup_2025-04-01T11-51-31-076Z
+│   │   │   │   ├── code
+│   │   │   │   ├── docs
+│   │   │   │   ├── images
+│   │   │   │   └── others
+│   │   │   ├── backup_2025-04-01T11-55-23-558Z
+│   │   │   │   ├── code
+│   │   │   │   ├── docs
+│   │   │   │   ├── images
+│   │   │   │   └── others
+│   │   │   ├── backup_2025-04-01T11-59-43-725Z
+│   │   │   │   ├── code
+│   │   │   │   ├── docs
+│   │   │   │   ├── images
+│   │   │   │   └── others
+│   │   │   ├── backup_2025-04-01T12-04-23-129Z
+│   │   │   │   ├── code
+│   │   │   │   ├── docs
+│   │   │   │   ├── images
+│   │   │   │   └── others
+│   │   │   ├── backup_2025-04-01T12-08-33-186Z
+│   │   │   │   ├── code
+│   │   │   │   ├── docs
+│   │   │   │   ├── images
+│   │   │   │   └── others
+│   │   │   └── backup_2025-04-01T12-42-58-984Z
+│   │   │       ├── code
+│   │   │       ├── docs
+│   │   │       ├── images
+│   │   │       └── others
+│   │   └── s
+│   │       ├── backup_2025-04-01T10-30-28-805Z
+│   │       │   ├── code
+│   │       │   ├── docs
+│   │       │   ├── images
+│   │       │   └── others
+│   │       ├── backup_2025-04-01T11-06-22-854Z
+│   │       │   ├── code
+│   │       │   ├── docs
+│   │       │   ├── images
+│   │       │   └── others
+│   │       ├── backup_2025-04-01T11-06-27-547Z
+│   │       │   ├── code
+│   │       │   ├── docs
+│   │       │   ├── images
+│   │       │   └── others
+│   │       ├── backup_2025-04-01T11-50-58-722Z
+│   │       │   ├── code
+│   │       │   ├── docs
+│   │       │   │   └── 1743505616707-CS_229.pdf
+│   │       │   ├── images
+│   │       │   └── others
+│   │       ├── backup_2025-04-01T11-51-31-076Z
+│   │       │   ├── code
+│   │       │   ├── docs
+│   │       │   ├── images
+│   │       │   └── others
+│   │       ├── backup_2025-04-01T11-55-23-558Z
+│   │       │   ├── code
+│   │       │   ├── docs
+│   │       │   ├── images
+│   │       │   └── others
+│   │       ├── backup_2025-04-01T11-59-43-725Z
+│   │       │   ├── code
+│   │       │   ├── docs
+│   │       │   ├── images
+│   │       │   └── others
+│   │       ├── backup_2025-04-01T12-04-23-129Z
+│   │       │   ├── code
+│   │       │   ├── docs
+│   │       │   ├── images
+│   │       │   └── others
+│   │       ├── backup_2025-04-01T12-08-33-186Z
+│   │       │   ├── code
+│   │       │   ├── docs
+│   │       │   ├── images
+│   │       │   └── others
+│   │       └── backup_2025-04-01T12-42-58-984Z
+│   │           ├── code
+│   │           ├── docs
+│   │           ├── images
+│   │           └── others
+│   ├── config
+│   │   ├── cors.js
+│   │   └── db.js
+│   ├── default_assets
+│   │   └── engineering
+│   │       ├── [10]part-2-deep-network-modern-practices.pdf
+│   │       ├── [11]part-2-chapter-6.pdf
+│   │       ├── [12]part-2-chapter-7.pdf
+│   │       ├── [13]part-2-chapter-8.pdf
+│   │       ├── [14]part-2-chapter-9.pdf
+│   │       ├── [15]part-2-chapter-10.pdf
+│   │       ├── [16]part-2-chapter-11.pdf
+│   │       ├── [17]part-2-chapter-12.pdf
+│   │       ├── [18]part-3-deep-learning-research.pdf
+│   │       ├── [19]part-3-chapter-13.pdf
+│   │       ├── [1]table-of-contents.pdf
+│   │       ├── [20]part-3-chapter-14.pdf
+│   │       ├── [21]part-3-chapter-15.pdf
+│   │       ├── [22]part-3-chapter-16.pdf
+│   │       ├── [2]acknowledgements.pdf
+│   │       ├── [3]notation.pdf
+│   │       ├── [4]chapter-1-introduction.pdf
+│   │       ├── [5]part-1-basics.pdf
+│   │       ├── [6]part-1-chapter-2.pdf
+│   │       ├── [7]part-1-chapter-3.pdf
+│   │       ├── [8]part-1-chapter-4.pdf
+│   │       └── [9]part-1-chapter-5.pdf
+│   ├── .env
+│   ├── faiss_indices
+│   │   ├── user_67ea3ddef04106c67984077c
+│   │   │   ├── index.faiss
+│   │   │   └── index.pkl
+│   │   └── user___DEFAULT__
+│   │       ├── index.faiss
+│   │       └── index.pkl
+│   ├── install.sh
+│   ├── middleware
+│   │   └── authMiddleware.js
+│   ├── models
+│   │   ├── ChatHistory.js
+│   │   └── User.js
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── rag_service
+│   │   ├── app.py
+│   │   ├── config.py
+│   │   ├── default.py
+│   │   ├── .env
+│   │   ├── faiss_handler.py
+│   │   ├── file_parser.py
+│   │   ├── indexes
+│   │   │   ├── default.faiss
+│   │   │   └── default_metadata.json
+│   │   ├── initialize_default_index.py
+│   │   ├── __pycache__
+│   │   │   ├── config.cpython-311.pyc
+│   │   │   ├── config.cpython-312.pyc
+│   │   │   ├── faiss_handler.cpython-311.pyc
+│   │   │   ├── faiss_handler.cpython-312.pyc
+│   │   │   ├── file_parser.cpython-311.pyc
+│   │   │   └── file_parser.cpython-312.pyc
+│   │   ├── rag_server.py
+│   │   └── requirements.txt
+│   ├── routes
+│   │   ├── auth.js
+│   │   ├── chat.js
+│   │   ├── files.js
+│   │   ├── network.js
+│   │   └── upload.js
+│   ├── server.js
+│   ├── services
+│   │   └── geminiService.js
+│   └── utils
+│       ├── assetCleanup.js
+│       └── networkUtils.js
+├── server New.js
+└── server_working pnmld.js
+
+297 directories, 140 files
