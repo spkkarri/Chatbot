@@ -1,0 +1,7 @@
+/* frontend/src/components/tools/ReadabilityMetrics.css */
+
+.gauge-progress-circle {
+    transition: stroke-dashoffset 0.8s ease-out;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+}

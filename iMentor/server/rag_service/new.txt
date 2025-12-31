@@ -1,0 +1,6 @@
+unsloth[llama-3-8b-bnb-4bit] @ git+https://github.com/unslothai/unsloth.git
+torch==2.3.0
+transformers==4.41.2
+datasets==2.19.0
+accelerate==0.30.1
+bitsandbytes==0.43.1

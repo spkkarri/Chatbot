@@ -1,0 +1,134 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "id": 1,
+      "title": "Total Requests Per Second (Traffic)",
+      "type": "timeseries",
+      "datasource": "Prometheus",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
+      "fieldConfig": {
+        "defaults": { "unit": "reqps", "color": { "mode": "palette-classic" }, "custom": { "lineWidth": 2, "fillOpacity": 10 } },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(rate(http_request_duration_seconds_count{job=\"nodejs_backend\"}[5m]))",
+          "legendFormat": "Node.js Backend"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(rate(flask_http_request_duration_seconds_count{job=\"python_rag_service\"}[5m]))",
+          "legendFormat": "Python RAG Service"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "API Latency (P95)",
+      "type": "timeseries",
+      "datasource": "Prometheus",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+      "fieldConfig": {
+        "defaults": { "unit": "s", "color": { "mode": "palette-classic" }, "custom": { "lineWidth": 2, "fillOpacity": 10 } },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket{job=\"nodejs_backend\"}[5m])) by (le))",
+          "legendFormat": "Node.js Backend (P95)"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "histogram_quantile(0.95, sum(rate(flask_http_request_duration_seconds_bucket{job=\"python_rag_service\"}[5m])) by (le))",
+          "legendFormat": "Python RAG Service (P95)"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Server Error Rate (5xx)",
+      "type": "timeseries",
+      "datasource": "Prometheus",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 },
+      "fieldConfig": {
+        "defaults": { "unit": "percent", "color": { "mode": "palette-classic" }, "custom": { "lineWidth": 2, "fillOpacity": 20 }, "min": 0, "max": 100 },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(rate(http_request_duration_seconds_count{job=\"nodejs_backend\", code=~\"5..\"}[5m])) / sum(rate(http_request_duration_seconds_count{job=\"nodejs_backend\"}[5m])) * 100",
+          "legendFormat": "Node.js Backend 5xx Errors (%)"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(rate(flask_http_request_duration_seconds_count{job=\"python_rag_service\", status=~\"5..\"}[5m])) / sum(rate(flask_http_request_duration_seconds_count{job=\"python_rag_service\"}[5m])) * 100",
+          "legendFormat": "Python RAG Service 5xx Errors (%)"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "CPU Usage",
+      "type": "timeseries",
+      "datasource": "Prometheus",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 8 },
+      "fieldConfig": {
+        "defaults": { "unit": "percent", "color": { "mode": "palette-classic" }, "custom": { "lineWidth": 2, "fillOpacity": 15 }, "min": 0, "max": 100 },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(rate(process_cpu_seconds_total{job=\"nodejs_backend\"}[5m])) * 100",
+          "legendFormat": "Node.js Backend CPU (%)"
+        }
+      ]
+    }
+  ],
+  "refresh": "15s",
+  "schemaVersion": 36,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Application Health Dashboard",
+  "uid": "ai_tutor_dashboard",
+  "version": 1
+}

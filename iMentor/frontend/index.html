@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI TUTOR</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/d3@6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markmap-lib@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markmap-view@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@latest"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@latest/dist/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@latest/dist/mermaid.min.js"></script>
+    
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        if (typeof mermaid !== 'undefined') {
+          mermaid.initialize({ startOnLoad: false, theme: 'neutral' }); 
+          console.log("Mermaid.js initialized globally with 'neutral' theme via index.html.");
+        } else {
+          console.error("Mermaid.js not found on window after script load. Mermaid diagrams may not render.");
+        }
+      });
+    </script>
+
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

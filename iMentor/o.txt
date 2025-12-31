@@ -1,0 +1,321 @@
+.
+├── code.txt
+├── docker-compose.yml
+├── filebeat.yml
+├── files_md.sh
+├── frontend
+│   ├── .env
+│   ├── eslint.config.js
+│   ├── files_md.sh
+│   ├── .gitignore
+│   ├── index.html
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── postcss.config.js
+│   ├── public
+│   │   ├── pdf.worker.min.mjs
+│   │   └── vite.svg
+│   ├── README.md
+│   ├── src
+│   │   ├── App.css
+│   │   ├── App.jsx
+│   │   ├── components
+│   │   │   ├── admin
+│   │   │   │   ├── AdminDashboardPage.jsx
+│   │   │   │   ├── AdminInsights.jsx
+│   │   │   │   ├── AdminProtectedRoute.jsx
+│   │   │   │   ├── AnalyticsDashboardPage.jsx
+│   │   │   │   ├── AnalyticsKpiCard.jsx
+│   │   │   │   ├── ApiKeyRequestManager.jsx
+│   │   │   │   ├── BulkUploader.jsx
+│   │   │   │   ├── ContentInsightsChart.jsx
+│   │   │   │   ├── CourseEditorPage.jsx
+│   │   │   │   ├── CourseManager.jsx
+│   │   │   │   ├── DatasetManager.jsx
+│   │   │   │   ├── DocumentStatusManager.jsx
+│   │   │   │   ├── ExternalServicesNav.jsx
+│   │   │   │   ├── FeatureUsageChart.jsx
+│   │   │   │   ├── LinkMaterialModal.jsx
+│   │   │   │   ├── LLMConfigManager.jsx
+│   │   │   │   ├── LlmUsageChart.jsx
+│   │   │   │   ├── ModelFeedbackStats.jsx
+│   │   │   │   ├── RenameOrOverwriteModal.jsx
+│   │   │   │   ├── StatusIndicator.jsx
+│   │   │   │   ├── StatusPill.jsx
+│   │   │   │   ├── UserChatManager.jsx
+│   │   │   │   └── UserSignupsChart.jsx
+│   │   │   ├── analysis
+│   │   │   │   ├── AnalysisTool.jsx
+│   │   │   │   ├── AnalysisToolRunner.jsx
+│   │   │   │   ├── KnowledgeGraphViewer.jsx
+│   │   │   │   ├── MindmapViewer.jsx
+│   │   │   │   ├── PodcastGenerator.jsx
+│   │   │   │   ├── RealtimeKgPanel.jsx
+│   │   │   │   └── RightPanel.jsx
+│   │   │   ├── auth
+│   │   │   │   ├── AuthModal.jsx
+│   │   │   │   ├── LLMSelection.jsx
+│   │   │   │   └── OtpInput.jsx
+│   │   │   ├── chat
+│   │   │   │   ├── ChatHistory.jsx
+│   │   │   │   ├── ChatHistoryModal.jsx
+│   │   │   │   ├── ChatInput.jsx
+│   │   │   │   ├── MessageBubble.jsx
+│   │   │   │   ├── PromptCoachModal.jsx
+│   │   │   │   ├── StreamingResponse.jsx
+│   │   │   │   ├── ThinkingDropdown.jsx
+│   │   │   │   └── TypingIndicator.jsx
+│   │   │   ├── common
+│   │   │   │   └── ThemeToggle.jsx
+│   │   │   ├── core
+│   │   │   │   ├── Button.jsx
+│   │   │   │   ├── ConfirmationModal.jsx
+│   │   │   │   ├── IconButton.jsx
+│   │   │   │   └── Modal.jsx
+│   │   │   ├── documents
+│   │   │   │   ├── CourseSearch.jsx
+│   │   │   │   ├── DocumentList.jsx
+│   │   │   │   ├── DocumentUpload.jsx
+│   │   │   │   ├── KnowledgeSourceList.jsx
+│   │   │   │   ├── SourceIngestion.jsx
+│   │   │   │   ├── SubjectList.jsx
+│   │   │   │   └── SyllabusViewer.jsx
+│   │   │   ├── landing
+│   │   │   │   ├── AudienceSection.jsx
+│   │   │   │   ├── CtaSection.jsx
+│   │   │   │   ├── FeaturesSection.jsx
+│   │   │   │   ├── Footer.jsx
+│   │   │   │   ├── HeroSection.jsx
+│   │   │   │   ├── HowItWorksSection.jsx
+│   │   │   │   ├── LandingNav.jsx
+│   │   │   │   └── LandingPage.jsx
+│   │   │   ├── layout
+│   │   │   │   ├── CenterPanel.jsx
+│   │   │   │   ├── LeftCollapsedNav.jsx
+│   │   │   │   ├── LeftPanel.jsx
+│   │   │   │   ├── LLMSelectionModal.jsx
+│   │   │   │   ├── RightCollapsedNav.jsx
+│   │   │   │   ├── RightPanel.jsx
+│   │   │   │   └── TopNav.jsx
+│   │   │   ├── learning
+│   │   │   │   └── StudyPlanPage.jsx
+│   │   │   ├── onboarding
+│   │   │   │   ├── OnboardingCard.jsx
+│   │   │   │   ├── OnboardingFlow.jsx
+│   │   │   │   ├── OnboardingProgress.jsx
+│   │   │   │   └── OnboardingVisual.jsx
+│   │   │   ├── profile
+│   │   │   │   └── ProfileSettingsModal.jsx
+│   │   │   └── tools
+│   │   │       ├── AcademicIntegrityPage.jsx
+│   │   │       ├── AIAssistantBot.jsx
+│   │   │       ├── AIAssistantPanel.jsx
+│   │   │       ├── CodeEditor.jsx
+│   │   │       ├── CodeEditorWrapper.jsx
+│   │   │       ├── CodeExecutorPage.jsx
+│   │   │       ├── IntegrityReportPanel.jsx
+│   │   │       ├── OutputDisplay.jsx
+│   │   │       ├── QuizGeneratorPage.jsx
+│   │   │       ├── QuizInProgress.jsx
+│   │   │       ├── QuizResults.jsx
+│   │   │       ├── QuizSetup.jsx
+│   │   │       ├── ReadabilityMetrics.css
+│   │   │       ├── ReadabilityMetrics.jsx
+│   │   │       ├── ReferenceFormatter.jsx
+│   │   │       ├── TestCaseManager.jsx
+│   │   │       └── ToolsModal.jsx
+│   │   ├── contexts
+│   │   │   ├── AppStateContext.jsx
+│   │   │   └── AuthContext.jsx
+│   │   ├── hooks
+│   │   │   ├── useAuth.jsx
+│   │   │   ├── useTextToSpeech.js
+│   │   │   ├── useTheme.js
+│   │   │   ├── useTypingEffect.js
+│   │   │   └── useWebSpeech.js
+│   │   ├── index.css
+│   │   ├── main.jsx
+│   │   ├── services
+│   │   │   ├── adminApi.js
+│   │   │   └── api.js
+│   │   └── utils
+│   │       ├── cn.js
+│   │       ├── helpers.js
+│   │       └── markdownUtils.jsx
+│   ├── tailwind.config.js
+│   ├── .vite
+│   │   └── deps
+│   │       ├── _metadata.json
+│   │       └── package.json
+│   └── vite.config.js
+├── .gitignore
+├── grafana
+│   └── provisioning
+│       ├── dashboards
+│       │   ├── dashboard.json
+│       │   └── dashboard.yml
+│       └── datasources
+│           └── datasource.yml
+├── install.sh
+├── mod.xlsx
+├── o.txt
+├── package-lock.json
+├── prometheus
+│   └── prometheus.yml
+├── README.md
+└── server
+    ├── config
+    │   ├── db.js
+    │   ├── elasticsearchClient.js
+    │   ├── promptTemplatesBackup.js
+    │   ├── promptTemplates.js
+    │   └── redisClient.js
+    ├── controllers
+    │   └── generationController.js
+    ├── course_assets
+    │   ├── EE301
+    │   │   └── docs
+    │   │       └── 1760090819959-185523355-CS_229.pdf
+    │   └── _staging
+    ├── .env
+    ├── generated_docs
+    ├── .gitignore
+    ├── instrument.js
+    ├── logs
+    │   ├── nodejs-backend.log
+    │   └── python-rag.log
+    ├── middleware
+    │   ├── adminAuthMiddleware.js
+    │   ├── authMiddleware.js
+    │   ├── cacheMiddleware.js
+    │   ├── fixedAdminAuthMiddleware.js
+    │   └── ipFilterMiddleware.js
+    ├── models
+    │   ├── AdminDocument.js
+    │   ├── ChatHistory.js
+    │   ├── Course.js
+    │   ├── Dataset.js
+    │   ├── FineTuningEvent.js
+    │   ├── KnowledgeSource.js
+    │   ├── LearningPath.js
+    │   ├── LLMConfiguration.js
+    │   ├── LLMPerformanceLog.js
+    │   └── User.js
+    ├── package.json
+    ├── package-lock.json
+    ├── parsed_data
+    │   └── EE301
+    │       └── docs
+    ├── protocols
+    │   └── contextProtocols.js
+    ├── rag_service
+    │   ├── academic_search.py
+    │   ├── ai_core.py
+    │   ├── appBackup.py
+    │   ├── app.py
+    │   ├── bias_wordlists.py
+    │   ├── config.py
+    │   ├── document_generator.py
+    │   ├── file_parser.py
+    │   ├── fine_tuner.py
+    │   ├── generated_docs
+    │   ├── __init__.py
+    │   ├── integrity_services.py
+    │   ├── knowledge_engine.py
+    │   ├── knowledge_graph_generator.py
+    │   ├── media_processor.py
+    │   ├── neo4j_handler.py
+    │   ├── new.txt
+    │   ├── podcast_generator.py
+    │   ├── prompts.py
+    │   ├── __pycache__
+    │   │   ├── academic_search.cpython-310.pyc
+    │   │   ├── ai_core.cpython-310.pyc
+    │   │   ├── app.cpython-310.pyc
+    │   │   ├── config.cpython-310.pyc
+    │   │   ├── document_generator.cpython-310.pyc
+    │   │   ├── file_parser.cpython-310.pyc
+    │   │   ├── integrity_services.cpython-310.pyc
+    │   │   ├── knowledge_engine.cpython-310.pyc
+    │   │   ├── knowledge_engine.cpython-312.pyc
+    │   │   ├── media_processor.cpython-310.pyc
+    │   │   ├── neo4j_handler.cpython-310.pyc
+    │   │   ├── podcast_generator.cpython-310.pyc
+    │   │   ├── prompts.cpython-310.pyc
+    │   │   ├── queue_config.cpython-310.pyc
+    │   │   ├── quiz_utils.cpython-310.pyc
+    │   │   ├── tts_service.cpython-310.pyc
+    │   │   ├── vector_db_service.cpython-310.pyc
+    │   │   └── vlm_processor.cpython-310.pyc
+    │   ├── queue_config.py
+    │   ├── quiz_utils.py
+    │   ├── requirements.txt
+    │   ├── speech_enhancer.py
+    │   ├── tts_service.py
+    │   ├── vector_db_service.py
+    │   ├── visualize_parser.py
+    │   └── vlm_processor.py
+    ├── routes
+    │   ├── admin.js
+    │   ├── analysis.js
+    │   ├── analytics.js
+    │   ├── auth.js
+    │   ├── chat.js
+    │   ├── courseAdmin.js
+    │   ├── course.js
+    │   ├── datasetRoutes.js
+    │   ├── documentAdmin.js
+    │   ├── export.js
+    │   ├── feedback.js
+    │   ├── files.js
+    │   ├── finetuning.js
+    │   ├── generationController.js
+    │   ├── generationRoutes.js
+    │   ├── index.js
+    │   ├── kg.js
+    │   ├── knowledgeSource.js
+    │   ├── learning.js
+    │   ├── learningPath.js
+    │   ├── llmConfig.js
+    │   ├── mindmap.js
+    │   ├── network.js
+    │   ├── subjects.js
+    │   ├── syllabus.js
+    │   ├── tools.js
+    │   ├── upload.js
+    │   └── user.js
+    ├── scripts
+    │   ├── seedLLMs.js
+    │   └── setupAdmin.js
+    ├── server.js
+    ├── services
+    │   ├── agentService.js
+    │   ├── criticalThinkingService.js
+    │   ├── emailService.js
+    │   ├── geminiService.js
+    │   ├── kgExtractionService.js
+    │   ├── kgService.js
+    │   ├── learning
+    │   │   └── curriculumOrchestrator.js
+    │   ├── llmRouterService.js
+    │   ├── ollamaService.js
+    │   ├── promptCoachService.js
+    │   ├── ragQueryService.js
+    │   ├── s3Service.js
+    │   ├── sessionAnalysisService.js
+    │   ├── toolExecutionService.js
+    │   ├── toolRegistry.js
+    │   ├── totOrchestrator.js
+    │   └── webSearchService.js
+    ├── utils
+    │   ├── assetCleanup.js
+    │   ├── crypto.js
+    │   ├── logger.js
+    │   ├── metrics.js
+    │   └── networkUtils.js
+    └── workers
+        ├── adminAnalysisWorker.js
+        ├── analysisWorker.js
+        └── kgWorker.js
+
+53 directories, 266 files

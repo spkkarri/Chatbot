@@ -1,0 +1,61 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+dist/
+
+# React / Vite / Frontend
+/build
+/.cache
+*.log
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+*.log
+*.db
+.env
+*.sqlite3
+*.pyc
+
+# Virtual environments
+venv/
+env/
+ENV/
+server/rag_service/venv/
+
+# VSCode / IDEs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Testing / Coverage
+coverage/
+.tox/
+.nox/
+.pytest_cache/
+.coverage
+*.cover
+*.log
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Others
+*.log
+*.bak
+*.swp
+
+
+code.txt

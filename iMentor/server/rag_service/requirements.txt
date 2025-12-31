@@ -1,0 +1,69 @@
+# -- Core Web & API Frameworks --
+flask~=2.3.0
+requests
+python-dotenv
+Werkzeug~=2.3.0
+aiohttp
+python-json-logger
+prometheus-flask-exporter
+sentry-sdk
+
+# -- LangChain --
+langchain~=0.2.0
+langchain-core~=0.2.0
+langchain-community~=0.2.0
+langchain-text-splitters~=0.2.0
+
+# -- AI & LLM SDKs --
+google-generativeai
+ollama
+openai
+openai-whisper
+
+# -- Vector & Graph Databases (Pinned for API consistency) --
+qdrant-client==1.8.2
+neo4j==5.17.0
+
+# -- Core ML/AI Block (Pinned as they are highly interdependent) --
+torch==2.3.0
+transformers==4.41.2
+accelerate==0.30.1
+bitsandbytes==0.43.1
+datasets==2.19.0
+sentence-transformers==2.7.0
+unsloth @ git+https://github.com/unslothai/unsloth.git
+
+# -- Text-to-Speech (Pinned due to its own complex dependencies) --
+TTS==0.22.0
+
+# -- Foundational Data Science Libraries (Generalized) --
+pandas
+numpy
+
+# -- Document & Data Processing --
+pypdf
+PyPDF2
+python-docx
+python-pptx
+pdfplumber
+PyMuPDF
+Pillow
+pytesseract
+spacy~=3.7.0
+tabulate
+# Note: After install, run: python -m spacy download en_core_web_sm
+
+# -- Web Scraping & Media --
+beautifulsoup4
+playwright
+yt-dlp
+moviepy
+pydub
+
+# -- Utilities --
+uuid
+nltk
+reportlab
+gTTS
+textstat
+ddgs

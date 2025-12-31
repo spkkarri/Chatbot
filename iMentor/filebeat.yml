@@ -1,0 +1,38 @@
+# filebeat.yml
+
+filebeat.inputs:
+# --- Input for Node.js logs ---
+- type: filestream
+  id: nodejs-backend-logs
+  enabled: true
+  paths:
+    - /usr/share/filebeat/logs/nodejs-backend.log
+  tags: ["nodejs-backend"]
+
+# --- Input for Python RAG logs ---
+- type: filestream
+  id: python-rag-logs
+  enabled: true
+  paths:
+    - /usr/share/filebeat/logs/python-rag.log
+  tags: ["python-rag"]
+
+# --- Universal JSON Processor ---
+processors:
+  - decode_json_fields:
+      fields: ["message"]
+      target: ""
+      add_error_key: true
+      process_array: false
+      overwrite_keys: true
+
+# --- Simplified Elasticsearch Output ---
+output.elasticsearch:
+  hosts: ["elasticsearch:9200"]
+
+# --- Automatic Template and ILM Setup ---
+setup.ilm.enabled: true
+setup.ilm.overwrite: true
+
+setup.kibana:
+  host: "kibana:5601"

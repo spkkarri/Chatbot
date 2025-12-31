@@ -1,0 +1,4 @@
+node_modules/
+rag_service/myVenv/
+logs/*.log
+code.txt

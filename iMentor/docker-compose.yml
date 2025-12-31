@@ -1,0 +1,143 @@
+services:
+  # Qdrant Vector DB Service
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: qdrant_service
+    ports:
+      - "2003:6333" # Port changed
+      - "6334:6334"
+    volumes:
+      - qdrant_data:/qdrant/storage
+    networks:
+      - ai_tutor_network
+    restart: unless-stopped
+
+  # Neo4j Graph DB Service
+  neo4j:
+    image: neo4j:5.17.0
+    container_name: neo4j_service
+    ports:
+      - "2004:7474" # Port changed
+      - "7687:7687"
+    volumes:
+      - neo4j_data:/data
+      - neo4j_logs:/logs
+    environment:
+      - NEO4J_AUTH=neo4j/password
+    networks:
+      - ai_tutor_network
+    restart: unless-stopped
+
+  # Redis Caching Service
+  redis:
+    image: redis:7.2-alpine
+    container_name: redis_service
+    ports:
+      - "2005:6379" # No change requested, keeping as is
+    volumes:
+      - redis_data:/data
+    networks:
+      - ai_tutor_network
+    restart: unless-stopped
+
+  # Elasticsearch Logging Service
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.3
+    container_name: elasticsearch
+    environment:
+      - "discovery.type=single-node"
+      - "xpack.security.enabled=false"
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "2006:9200" # Port changed
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -s http://localhost:9200/_cluster/health | grep -vq '\"status\":\"red\"'"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - ai_tutor_network
+    restart: unless-stopped
+
+  # Filebeat Lightweight Log Shipper Service
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:8.11.3
+    container_name: filebeat
+    user: root
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    volumes:
+      # --- Keep the :ro (read-only) for security ---
+      - ./filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - ./server/logs:/usr/share/filebeat/logs:ro
+    # --- THIS COMMAND IS THE FIX for the permission error ---
+    command: sh -c 'filebeat -e -d "publish" --strict.perms=false'
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    networks:
+      - ai_tutor_network
+    restart: unless-stopped
+
+  # Kibana Visualization Service
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.11.3
+    container_name: kibana
+    ports:
+      - "2007:5601" # Port changed
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    networks:
+      - ai_tutor_network
+    restart: unless-stopped
+
+  # Prometheus Monitoring Service
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "2008:9090" # Port changed
+    volumes:
+      - ./prometheus/:/etc/prometheus/
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    networks:
+      - ai_tutor_network
+    extra_hosts: # <--- ADD THIS SECTION
+      - "host.docker.internal:host-gateway" # Maps host.docker.internal to the host's gateway IP
+    restart: unless-stopped
+
+  # Grafana Visualization Service
+  grafana:
+    image: grafana/grafana-oss:latest
+    container_name: grafana
+    ports:
+      - "2009:3000" # Port changed
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning/:/etc/grafana/provisioning/
+    depends_on:
+      - prometheus
+    networks:
+      - ai_tutor_network
+    restart: unless-stopped
+
+volumes:
+  qdrant_data:
+  neo4j_data:
+  neo4j_logs:
+  redis_data:
+  elasticsearch_data:
+  prometheus_data:
+  grafana_data:
+
+networks:
+  ai_tutor_network:
+    driver: bridge
+
